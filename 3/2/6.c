@@ -10,7 +10,7 @@ int a[20],b[20];
 
 int main()
 {
-	int i;
+	int i, sum=0;
 
 	a[1]=8;
 	b[1]=1;
@@ -20,10 +20,10 @@ int main()
 		a[i]=a[i-1]+b[i];
 	}
 
-	int sum=0;
 	for(i=1;i<=10;i++)
 		sum+=a[i];
 	
 	printf("The sum is %d\n",sum);
+
 	return 0;
 }
