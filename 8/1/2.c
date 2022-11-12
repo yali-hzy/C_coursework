@@ -1,24 +1,20 @@
-#include<stdio.h>
-struct Key
+#include <stdio.h>
+struct bicycle
 {
-	char *keyword;
-	int keyno;
+	long num;
+	char color;
+	int type;
 };
 void main()
 {
-	struct Key kd[3]={{"are",123},{"your",456},{"my",789}};
-	struct Key *p;
-	int a;
-	char *str;
-
-	p=kd;
-	str=p++->keyword;
-	printf("str=%s\n",str+1);
-
-	a=++p->keyno;
-	printf("a=%d\n",a);
-
-	p=kd;
-	a=p->keyno;
-	printf("a=%d\n",a);
+	static struct bicycle bye[ ] = { {200012, 'B', 18},
+									 {970101, 'R', 12},
+									 {960005, 'G', 30},
+									 {981168, 'Y', 20},
+									 {991688, 'W', 18} };
+	int i;
+	printf("number color type\n");
+	printf("-------------------\n");
+	for(i = 0; i < 4; i++)
+		printf("%-9ld%-6c%d\n",bye[i].num,bye[i].color,bye[i].type);
 }
