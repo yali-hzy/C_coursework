@@ -16,7 +16,7 @@ int main()
 	int i,j,n,p,a[20];
 	puts("Please input n and the parameter.");
 	scanf("%d%d",&n,&p);
-	puts("Pleasr input the n number(s).");
+	puts("Please input the n number(s).");
 	for(i=1;i<=n;i++)
 		scanf("%d",&a[i]);
 	sort(a,n,p);
