@@ -1,64 +1,31 @@
-/*
-可处理超过 int 型的正整数
-可处理含 一个符号 和 多个前导0 的数
-*/
 #include <stdio.h>
 #include <string.h>
 const int N = 10;
+char toCapital(char c)
+{
+	return c-32*(c>='a' && c<='z');
+}
 int cmp(char *a, char *b)
 {
-	int alen = strlen(a), blen = strlen(b), astart = 0, bstart = 0, m, anegative =0, bnegative = 0;
-	if(a[astart] == '+')
-        astart++;
-    else
-        if(a[astart] == '-')
-        {
-            anegative = 1;
-            astart++;
-        }
-    if(b[astart] == '+')
-        bstart++;
-    else
-        if(b[bstart] == '-')
-        {
-            bnegative = 1;
-            bstart++;
-        }
-   	if(anegative != bnegative)
-        return anegative < bnegative;
-	for(;astart < alen - 1 && a[astart] == '0'; astart++);
-	for(;bstart < blen - 1 && b[bstart] == '0'; bstart++);
-	m = (alen - astart) - (blen - bstart);
-	if(m)
-	{
-		if(m > 0)
-			return (1^anegative);
-		else
-			return (0^anegative);
-	}
-	a += astart;
-	b += bstart;
-	for(; *a && *b; a++, b++)
-	{
-		if(*a > *b)
-			return (1^anegative);
-		if(*a < *b)
-			return (0^anegative);
-	}
-	return 0;
+	for(; *a && *b && toCapital(*a) == toCapital(*b); a++, b++);
+	return toCapital(*a) > toCapital(*b);
 }
-int main()
+void in(char s[][110], int *opt, int n)
 {
-	int i, j, opt, ilen, mlen, len;
-	char s[N+10][110], *minstr, tmp;
-	for(i = 1; i <= N; i++)
+	int i;
+	for(i = 1; i <= n; i++)
 		scanf("%s", s[i]);
-	scanf("%d", &opt);
-	for(i = 1; i < N; i++)
+	scanf("%d", opt);
+}
+void selectionSort(char s[][110], int opt, int n)
+{
+	int i, j, ilen, mlen, len;
+	char *minstr, tmp;
+	for(i = 1; i < n; i++)
 	{
 		minstr = s[i];
-		for(j = i + 1; j <= N; j++)
-			if((!opt && cmp(minstr, s[j])) || (opt && strcmp(minstr, s[j])>0))
+		for(j = i + 1; j <= n; j++)
+			if((opt && cmp(minstr, s[j])) || (!opt && strcmp(minstr, s[j])>0))
 				minstr = s[j];
 		ilen = strlen(s[i]);
 		mlen = strlen(minstr);
@@ -70,8 +37,32 @@ int main()
 			minstr[j] = tmp;
 		}
 	}
-	for(i = 1; i <= 10; i++)
+}
+void out(char s[][110], int n)
+{
+	int i;
+	for(i = 1; i <= n; i++)
 		printf("%s\n", s[i]);
+}
+int main()
+{
+	int opt;
+	char s[N+10][110];
+	in(s, &opt, N);
+	selectionSort(s, opt, N);
+	out(s, N);
 	return 0;
 }
-
+/*
+abc 
+AB
+a
+A
+dghf
+asjhas
+asjhf
+ASHDFjdf
+sjhd
+ashf
+1
+*/
